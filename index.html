@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Genus-3 equivelar octahedron (Mizhaev, arXiv:2609.17700)</title>
+<meta name="description" content="Rotate and explore a newly realised shape: eight flat nine-sided faces forming a closed surface with three holes, where every face touches every other.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jacobaron-gif.github.io/genus3-octahedron/">
+<meta property="og:title" content="An eight-faced shape with three holes, in 3D">
+<meta property="og:description" content="Rotate and explore a newly realised shape: eight flat nine-sided faces forming a closed surface with three holes, where every face touches every other.">
+<meta property="og:image" content="https://jacobaron-gif.github.io/genus3-octahedron/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Screenshot of the interactive 3D viewer showing the eight coloured nonagonal faces">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   html, body { margin: 0; height: 100%; background: #14161a; color: #e8e8e8;
     font: 14px/1.35 system-ui, -apple-system, sans-serif; overflow: hidden; }
@@ -140,7 +150,7 @@ const persp = (fov, asp, n, f) => { const t = 1/Math.tan(fov/2);
   return [t/asp,0,0,0, 0,t,0,0, 0,0,(f+n)/(n-f),-1, 0,0,2*f*n/(n-f),0]; };
 const trans = (x,y,z) => [1,0,0,0, 0,1,0,0, 0,0,1,0, x,y,z,1];
 
-const initialRot = () => mul(rotAxis([1,0,0], -1.05), rotAxis([0,0,1], 0.5)); // z-axis (C4 axis) tilted toward viewer
+const initialRot = () => rotAxis([1,0,0], -0.25); // looking nearly down the C4 symmetry axis
 let R = initialRot(), zoom = 1, spin = true, showEdges = true, ghost = false, explode = 0, sel = -1;
 
 // ---- Interaction ----
@@ -187,7 +197,7 @@ function draw(now) {
   const panelH = $("panel").offsetHeight / innerHeight;
   const asp = cv.width/cv.height;
   // fit the shape (radius ~1.3, more when pulled apart) into the smaller screen dimension, above the panel
-  const fit = (1.3 + explode*0.9) / (Math.tan(0.375) * Math.min(asp, 1 - panelH));
+  const fit = (1.55 + explode*0.9) / (Math.tan(0.375) * Math.min(asp, 1 - panelH));
   const dist = fit * zoom;
   const P = persp(0.75, asp, 0.1, 100);
   const M = mul(trans(0, panelH*Math.tan(0.375)*dist, -dist), R);   // nudge up so the panel doesn't cover it
